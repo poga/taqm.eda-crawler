@@ -14,7 +14,7 @@ request.post({
   }
 }, function (err, resp, sites) {
   var sites = JSON.parse(sites)
-  async.eachSeries(sites, craw, console.log)
+  async.eachSeries(sites, craw, err => { if (err) console.log(err) })
 })
 
 function craw (site, cb) {
