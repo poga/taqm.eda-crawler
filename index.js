@@ -1,9 +1,10 @@
 const request = require('request')
 const async = require('async')
 const fs = require('fs')
+const moment = require('moment')
 
 const url = 'http://airtw.epa.gov.tw/taqmplat/ajaxCS.aspx'
-const time = '2017-01-22 18:00:00'
+const time = moment().format('YYYY-MM-DD H:00:00')
 
 request.post({
   url: url,
