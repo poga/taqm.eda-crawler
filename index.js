@@ -13,8 +13,9 @@ request.post({
     Type: 'GetSiteinMap',
     SiteType: 'All'
   }
-}, function (err, resp, sites) {
-  var sites = JSON.parse(sites)
+}, function (err, resp, body) {
+  if (err) console.log(err)
+  var sites = JSON.parse(body)
   async.eachSeries(sites, craw, err => { if (err) console.log(err) })
 })
 
@@ -25,11 +26,13 @@ function craw (site, cb) {
       Type: 'GetSiteDetail',
       SiteID: site.SiteID,
       QueryTime: time,
-      SiteType: '中央政府'
+      SiteType: site.SiteType2
     }
   }, function (err, resp, body) {
-    var body = JSON.stringify(JSON.parse(body)[0])
-    fs.appendFileSync(site.SiteID, `${body}\n`)
-    cb(err)
+    if (err) return cb(err)
+    var data = JSON.stringify(JSON.parse(body)[0])
+    fs.appendFileSync(site.SiteID, `${data}\n`)
+    cb()
   })
 }
+
