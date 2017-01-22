@@ -4,7 +4,7 @@ const fs = require('fs')
 const moment = require('moment')
 
 const url = 'http://airtw.epa.gov.tw/taqmplat/ajaxCS.aspx'
-const time = moment().format('YYYY-MM-DD H:00:00')
+const time = moment().subtract(1, 'hour').format('YYYY-MM-DD H:00:00')
 
 request.post({
   url: url,
